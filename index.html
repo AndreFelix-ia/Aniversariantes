@@ -68,7 +68,21 @@ body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--tx);disp
 <body>
 <div id="tb">
 <div class="g"><label>Regional</label><select id="fr" onchange="render()"></select></div>
-<div class="g"><label>Cargo</label><select id="fc" onchange="render()"></select></div>
+<div class="g">
+    <label>Cargo</label>
+
+    <div style="display:flex;gap:5px;margin-bottom:4px;">
+        <button type="button" onclick="selecionarTodosCargos()">
+            Todos
+        </button>
+
+        <button type="button" onclick="limparCargos()">
+            Limpar
+        </button>
+    </div>
+
+    <select id="fc" multiple size="8" onchange="render()"></select>
+</div>
 <div class="g"><label>Mês</label><select id="fm" onchange="render()"></select></div>
 <div class="s"></div>
 <button class="btn b1" onclick="saveImg(this)">Salvar como Imagem</button>
@@ -165,18 +179,55 @@ function cAnos(da){
     var anoRef = new Date().getFullYear();
     return anoRef - da.getFullYear();
 }
+    function selecionarTodosCargos(){
+
+    var sel = document.getElementById('fc');
+
+    for(var i=0;i<sel.options.length;i++){
+        if(sel.options[i].value !== ''){
+            sel.options[i].selected = true;
+        }
+    }
+
+    render();
+}
+
+function limparCargos(){
+
+    var sel = document.getElementById('fc');
+
+    for(var i=0;i<sel.options.length;i++){
+        sel.options[i].selected = false;
+    }
+
+    render();
+}
 function render(){
 var mi=parseInt(document.getElementById('fm').value);
 var hj=new Date();var ano=hj.getFullYear();
 var reg=document.getElementById('fr').value;
-var car=document.getElementById('fc').value;
+var car = Array.from(
+    document.getElementById('fc').selectedOptions
+).map(function(o){
+    return o.value;
+});
 document.getElementById('tm').textContent=MES[mi]+' '+ano;
 var txtReg=reg?'REGIONAL '+reg.toUpperCase():'TODAS AS REGIONAIS';
-var txtCar=car?car.toUpperCase():'TODOS OS CARGOS';
+var txtCar=
+    car.length
+        ? car.length + ' CARGO(S) SELECIONADO(S)'
+        : 'TODOS OS CARGOS';
 document.getElementById('tr').textContent=txtReg+' | '+txtCar;
 var fltr=dados.filter(function(r){
 if(reg&&ci.reg>=0){if(String(r[ci.reg]||'').trim()!==reg)return false;}
-if(car&&ci.cargo>=0){if(String(r[ci.cargo]||'').trim()!==car)return false;}
+if(car.length && ci.cargo >= 0){
+
+    var cargoAtual =
+        String(r[ci.cargo] || '').trim();
+
+    if(!car.includes(cargoAtual))
+        return false;
+}
 return true;
 });
 var bd=[],cp=[];
