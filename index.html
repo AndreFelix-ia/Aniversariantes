@@ -161,7 +161,10 @@ return null;
 }
 function fd(d){if(!d)return'--';return String(d.getDate()).padStart(2,'0')+'/'+MN[d.getMonth()];}
 function fd2(d){if(!d)return'--';return String(d.getDate()).padStart(2,'0')+'/'+MN[d.getMonth()]+'/'+d.getFullYear();}
-function cAnos(da){var hj=new Date();var a=hj.getFullYear()-da.getFullYear();if(da.getMonth()>hj.getMonth()||(da.getMonth()===hj.getMonth()&&da.getDate()>hj.getDate()))a--;return a;}
+function cAnos(da){
+    var anoRef = new Date().getFullYear();
+    return anoRef - da.getFullYear();
+}
 function render(){
 var mi=parseInt(document.getElementById('fm').value);
 var hj=new Date();var ano=hj.getFullYear();
