@@ -13,7 +13,31 @@ body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--tx);disp
 #tb{width:100%;max-width:1280px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:14px 0;margin-bottom:8px}
 #tb .g{display:flex;flex-direction:column}
 #tb label{font-size:11px;font-weight:600;color:var(--mt);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
-#tb select{padding:8px 14px;border:1px solid #cbd5e0;border-radius:8px;font-size:14px;background:var(--wh);cursor:pointer}
+#tb select{
+    padding:8px 14px;
+    border:1px solid #cbd5e0;
+    border-radius:8px;
+    font-size:14px;
+    background:var(--wh);
+    cursor:pointer;
+}
+
+#fc{
+    width:260px;
+    height:120px;
+    font-size:13px;
+}
+
+.cargo-buttons{
+    margin-bottom:6px;
+}
+
+.cargo-buttons button{
+    padding:4px 8px;
+    border:none;
+    border-radius:4px;
+    cursor:pointer;
+}
 #tb .s{flex:1}
 .btn{padding:9px 20px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s}
 .b1{background:var(--az);color:var(--wh)}.b1:hover{background:var(--ae)}
@@ -71,7 +95,7 @@ body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--tx);disp
 <div class="g">
     <label>Cargo</label>
 
-    <div style="display:flex;gap:5px;margin-bottom:4px;">
+    <div class="cargo-buttons">
         <button type="button" onclick="selecionarTodosCargos()">
             Todos
         </button>
@@ -81,7 +105,7 @@ body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--tx);disp
         </button>
     </div>
 
-    <select id="fc" multiple size="8" onchange="render()"></select>
+    <select id="fc" multiple size="5" onchange="render()"></select>
 </div>
 <div class="g"><label>Mês</label><select id="fm" onchange="render()"></select></div>
 <div class="s"></div>
